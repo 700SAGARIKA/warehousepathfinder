@@ -11,7 +11,7 @@ pipeline {
         stage('Build with Docker Compose') {
             steps {
                 script {
-                    sh 'docker compose build'
+                    sh 'docker-compose build'
                 }
             }
         }
@@ -19,10 +19,10 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'docker compose down || true'
-                    sh 'docker compose up -d'
+                    sh 'docker-compose down || true'
+                    sh 'docker-compose up -d'
                     sh 'sleep 30'
-                    sh 'docker compose exec -T warehouse-app curl -s http://localhost:8010 > /dev/null || exit 1'
+                    sh 'docker-compose exec -T warehouse-app curl -s http://localhost:8010 > /dev/null || exit 1'
                     sh 'echo "Application is running successfully"'
                 }
             }
@@ -31,7 +31,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
-                    sh 'docker compose down || true'
+                    sh 'docker-compose down || true'
                 }
             }
         }
