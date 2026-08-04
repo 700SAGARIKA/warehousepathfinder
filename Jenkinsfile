@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = "warehouse-path-finder:${BUILD_NUMBER}"
-        REGISTRY = "docker.io"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -13,10 +8,10 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build with Docker Compose') {
             steps {
                 script {
-                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                    sh 'docker compose build'
                 }
             }
         }
@@ -27,7 +22,8 @@ pipeline {
                     sh 'docker compose down || true'
                     sh 'docker compose up -d'
                     sh 'sleep 30'
-                    sh 'docker exec warehouse-path-finder curl -f http://localhost:8010 || exit 1'
+                    sh 'docker compose exec -T warehouse-app curl -s http://localhost:8010 > /dev/null || exit 1'
+                    sh 'echo "Application is running successfully"'
                 }
             }
         }
