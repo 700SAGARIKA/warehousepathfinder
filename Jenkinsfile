@@ -4,7 +4,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/700SAGARIKA/warehousepathfinder.git',
+                        credentialsId: 'github-credentials'
+                    ]]
+                ])
                 echo 'Code checked out successfully'
             }
         }
