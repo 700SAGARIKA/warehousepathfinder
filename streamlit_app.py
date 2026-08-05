@@ -209,7 +209,7 @@ def page_header(chips=()):
         <div class="wpf-mark">📦</div>
         <div>
           <div class="wpf-title">Warehouse <span>Path Finder</span></div>
-          <div class="wpf-sub">Floor-plan digitiser · rack-face picker ·
+          <div class="wpf-sub">✅ v2.0 Deployed Successfully! · Floor-plan digitiser · rack-face picker ·
             shelf-level bin graph · shortest-path routing</div>
         </div>
         <div class="wpf-chips">{chip_html}</div>

@@ -13,6 +13,11 @@ services:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    networks:
+      - warehouse-network
 
   warehouse-app:
     build:
@@ -35,6 +40,12 @@ services:
       timeout: 10s
       retries: 3
       start_period: 45s
+    networks:
+      - warehouse-network
+
+networks:
+  warehouse-network:
+    driver: bridge
 
 volumes:
   jenkins_home:
